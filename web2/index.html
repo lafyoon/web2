@@ -1,0 +1,492 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="UTF-8">
+	<meta name="Generator" content="EditPlus®">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+
+	<link rel="stylesheet" href="core.css">
+	<link rel="Stylesheet" type="text/css" href="css/smoothDivScroll.css" />
+	<link rel="Stylesheet" type="text/css" href="css/pageStyle.css" />
+	<title>Main</title>
+	<link rel="stylesheet"  href="../src/css/lightslider.css"/>
+	<style>
+		ul{
+			list-style: none outside none;
+			padding-left: 0;
+			margin: 0;
+		}
+		.demo .item{
+			margin-bottom: 60px;
+		}
+		.content-slider li{
+			text-align: center;
+			color: #FFF;
+		}
+		.content-slider h3 {
+			margin: 0;
+			padding: 70px 0;
+		}
+		.demo{
+			width: 1400px; height: 800px;
+		}
+	</style>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="../src/js/lightslider.js"></script> 
+	<script>
+		$(document).ready(function() {
+			$("#content-slider").lightSlider({
+				loop:true,
+				keyPress:true
+			});          
+		});
+	</script>
+	<style type="text/css">
+		body{
+			background-color: #F6F6F6;
+
+		}
+		ul{list-style:none; padding-left:0px; }
+		.footer{width: 2000px; float: left; margin:0px auto; text-align:left; text-justify:distribute-all-lines;  background-color: rgb(226,226,226); }	
+		.article3{width: 220px;float: left; margin:50px ;text-align:center; }
+		.sectionfont{ font-size: 15px; font-weight: bold;} 
+		
+
+		.article4{clear: left; text-align:left;}
+		.article5{text-align: right; float:right; display:inline;}	
+		.lineset2{display:inline; text-align: center; }
+		.lineset{ text-align: center; }
+
+		.join{
+			background-color: #FFFFFF;
+			border: solid 1px #aaaaaa;
+			border-radius:10px;
+			padding:25px
+
+		}
+		#border1{
+			border-top: solid 1px black;
+			border-bottom: solid 1px black;
+			border-left: solid 1px black;
+			border-right: solid 1px black;
+		}
+
+		a { text-decoration:none }
+
+		header { background-image:url("img/Back.jpg");}
+
+		#back{
+			background-color: #FFFFFF;
+			border: double 10px #045FB4;
+			border-radius:10px;
+			padding:25px
+		}
+		#ticket{
+			background-image: url('img/Ticket.jpg');
+			width: 50;
+			height: 10;
+		}
+	</style>
+
+	<style type="text/css">
+		#star ul.star { LIST-STYLE: none; MARGIN: 0; PADDING: 0; WIDTH: 85px; HEIGHT: 20px; LEFT: 10px; TOP: -5px; POSITION: relative; FLOAT: left; BACKGROUND: url('img/stars.gif') repeat-x; CURSOR: pointer; }
+		#star li { PADDING: 0; MARGIN: 0; FLOAT: left; DISPLAY: block; WIDTH: 85px; HEIGHT: 20px; TEXT-DECORATION: none; text-indent: -9000px; Z-INDEX: 20; POSITION: absolute; PADDING: 0; }
+		#star li.curr { BACKGROUND: url('img/stars.gif') left 25px; FONT-SIZE: 1px; }
+		#star div.user { LEFT: 15px; POSITION: relative; FLOAT: left; FONT-SIZE: 13px; FONT-FAMILY: Arial; COLOR: #888; }
+	</style>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+	<script src="jquery.tweetToEnter.js"></script>
+
+	<script type="text/javascript">
+
+		function $(v,o) { return((typeof(o)=='object'?o:document).getElementById(v)); }
+		function $S(o) { return((typeof(o)=='object'?o:$(o)).style); }
+		function agent(v) { return(Math.max(navigator.userAgent.toLowerCase().indexOf(v),0)); }
+		function abPos(o) { var o=(typeof(o)=='object'?o:$(o)), z={X:0,Y:0}; while(o!=null) { z.X+=o.offsetLeft; z.Y+=o.offsetTop; o=o.offsetParent; }; return(z); }
+		function XY(e,v) { var o=agent('msie')?{'X':event.clientX+document.body.scrollLeft,'Y':event.clientY+document.body.scrollTop}:{'X':e.pageX,'Y':e.pageY}; return(v?o[v]:o); }
+
+		star={};
+
+		star.mouse=function(e,o) { if(star.stop || isNaN(star.stop)) { star.stop=0;
+
+			document.onmousemove=function(e) { var n=star.num;
+
+				var p=abPos($('star'+n)), x=XY(e), oX=x.X-p.X, oY=x.Y-p.Y; star.num=o.id.substr(4);
+
+				if(oX<1 || oX>84 || oY<0 || oY>19) { star.stop=1; star.revert(); }
+
+				else {
+
+					$S('starCur'+n).width=oX+'px';
+					$S('starUser'+n).color='#111';
+					$('starUser'+n).innerHTML=Math.round(oX/84*100)+'%';
+				}
+			};
+		} };
+
+		star.update=function(e,o) { var n=star.num, v=parseInt($('starUser'+n).innerHTML);
+
+		n=o.id.substr(4); $('starCur'+n).title=v;
+
+		req=new XMLHttpRequest(); req.open('GET','/AJAX_Star_Vote.php?vote='+(v/100),false); req.send(null);    
+
+	};
+
+	star.revert=function() { var n=star.num, v=parseInt($('starCur'+n).title);
+
+	$S('starCur'+n).width=Math.round(v*84/100)+'px';
+	$('starUser'+n).innerHTML=(v>0?Math.round(v)+'%':'');
+	$('starUser'+n).style.color='#888';
+	
+	document.onmousemove='';
+
+};
+
+star.num=0;
+
+</script>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+
+<script src="js/jquery.ui.widget.js" type="text/javascript"></script>
+
+<script src="js/jquery.smoothDivScroll-1.0-min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+		// Can also be used with $(document).ready()
+		$(window).load(function() {
+
+  // Vimeo API nonsense
+  var player = document.getElementById('player_1');
+  $f(player).addEvent('ready', ready);
+
+  function addEvent(element, eventName, callback) {
+  	if (element.addEventListener) {
+  		element.addEventListener(eventName, callback, false)
+  	} else {
+  		element.attachEvent(eventName, callback, false);
+  	}
+  }
+
+  function ready(player_id) {
+  	var froogaloop = $f(player_id);
+  	froogaloop.addEvent('play', function(data) {
+  		$('.flexslider').flexslider("pause");
+  	});
+  	froogaloop.addEvent('pause', function(data) {
+  		$('.flexslider').flexslider("play");
+  	});
+  }
+
+
+  // Call fitVid before FlexSlider initializes, so the proper initial height can be retrieved.
+  $(".flexslider")
+  .fitVids()
+  .flexslider({
+  	animation: "slide",
+  	useCSS: false,
+  	animationLoop: false,
+  	smoothHeight: true,
+  	before: function(slider){
+  		$f(player).api('pause');
+  	}
+  });
+});
+		$(function() {
+			$("div#makeMeScrollable").smoothDivScroll({ autoScroll: "always", 
+				autoScrollDirection: "backandforth",
+				autoScrollStep: 1.5,
+				autoScrollInterval: 15,
+				startAtElementId: "startAtMe",
+				visibleHotSpots: "always" });
+			
+		});
+	</script>
+
+	<style type="text/css">
+
+		#makeMeScrollable
+		{
+			width:100%;
+			height: 450px;
+			position: relative;
+		}
+
+		#makeMeScrollable div.scrollableArea *
+		{
+			position: relative;
+			float: left;
+			margin: 0;
+			padding: 0;
+		}
+
+
+
+	</style>
+
+</head>
+<body>
+
+	<header>
+		<div style="border: double 10px lightblue; width: 1200px; height: 180px; background-color: white; margin: auto;">
+			<a href= "index.html"><img src="img/dawoon cinema.jpg" style="margin-left: auto; margin-right: auto; display: block;"/></a>
+			<a href= "html/login.html"><input type="button" value="로 그 인" style="float: right;"></a>
+			<a href= "join/join.html"><input type="button" value="회원가입" style="float: right;"></a>
+			<a href= "html/find.html"><input type="button" value="ID/PW찾기" style="float: right;"></a>
+			<hr style="clear: both">
+			<div class="nav_exmaple">
+				<nav>
+					<ul>
+						<li><a href=""><img src="img/Ticket.jpg" width="80" height="55"></a></li>
+						<li><a href= "movie/movie.html"><img src="img/Moive.png" width="65" height="65"></a>
+							<ul>
+								<li><a href="">Recent Activity</a></li>
+								<li><a href="">Member Forum</a></li>
+								<li><a href="">Member List</a></li>
+								<li><a href="">Member Groups</a></li>
+
+							</ul>
+						</li>
+						<li><a href=""><img src="img/DC.jpg" width="65" height="65"></a>
+							<ul>
+								<li><a href="">Vets</a></li>
+								<li><a href="">Hospital</a></li>
+								<li><a href="">Insurance</a></li>
+
+								<li><a href="">Service</a></li>
+							</ul>
+						</li>
+						<li><a href=""><img src="img/Event.jpeg" width="65" height="65"></a></li>
+						<li><a href=""><img src="img/Notice_board.png" width="80" height="55"></a></li>
+						<li><b>검색창: </b><input type ="text" size="10">
+							<button type ="button" >검색</button><br></li>
+						</ul>
+
+					</nav>
+				</div>
+			</div>
+		</header>
+
+		<div id="mainContent" style="margin-left: auto; margin-right: auto;">
+
+			<div id="makeMeScrollable">
+				<div class="scrollingHotSpotLeft"></div>
+
+				<div class="scrollingHotSpotRight"></div>
+				<div class="scrollWrapper">
+					<div class="scrollableArea">
+						<a href="#"><img src="images/demo/event1.jpg" alt="Demo image" width="980" height="450" border="0" /></a>
+						<a href="#"><img src="images/demo/event2.jpg" alt="Demo image" width="980" height="450" /></a>
+						<a href="#"><img src="images/demo/event3.jpg" alt="Demo image" width="980" height="450" /></a></div>
+					</div>
+				</div>
+			</div>
+
+			<table class="join" width ="1400" height="200" align = "center" cellpadding="10" cellspacing="0" style="margin: 30px auto;">
+				<thead>
+					<tr>
+						<td colspan="12"><b>현재 개봉 중인 영화</b></td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr align ="center">
+						<td colspan = "2"><img src="img/악인전.jpg" width="250" height="330"></td>
+						<td colspan = "2"><img src="img/알라딘.jpg"></td>
+						<td colspan = "2"><img src="img/어밴져스.jpg"></td>	
+						<td colspan = "2"><img src="img/걸캅스.jpg"></td>
+						<td colspan = "2"><img src="img/어린의뢰인.jpg"></td>
+						<td colspan = "2"><img src="img/필하모닉.jpg"></td>
+					</tr>
+					<tr align ="center">
+						<td id="border1"> 평   점  </td>
+						<td id="border1" width="130">
+							<div id="star">
+								<ul id="star0" class="star" onmousedown="star.update(event,this)" onmousemove="star.mouse(event,this)" title="Rate This!">
+									<li id="starCur0" class="curr" title="98" style="width: 82px;"></li>
+								</ul>
+								<div style="color: rgb(136, 136, 136);" id="starUser0" class="user">0%</div>
+							</td>
+							<td id="border1"> 평   점  </td>
+							<td id="border1" width="130">
+								<div id="star">
+									<ul id="star1" class="star" onmousedown="star.update(event,this)" onmousemove="star.mouse(event,this)" title="Rate This!" style="clear: both;">
+										<li id="starCur1" class="curr" title="98" style="width: 82px;"></li>
+									</ul>
+									<div style="color: rgb(136, 136, 136);" id="starUser1" class="user">0%</div>
+								</div>
+							</td>
+							<td id="border1"> 평   점  </td>
+							<td id="border1" width="130">
+								<div id="star">
+									<ul id="star2" class="star" onmousedown="star.update(event,this)" onmousemove="star.mouse(event,this)" title="Rate This!" style="clear: both;">
+										<li id="starCur2" class="curr" title="98" style="width: 82px;"></li>
+									</ul>
+									<div style="color: rgb(136, 136, 136);" id="starUser2" class="user">0%</div>
+								</div>
+							</td>
+							<td id="border1"> 평   점  </td>
+							<td id="border1" width="130">
+								<div id="star">
+									<ul id="star3" class="star" onmousedown="star.update(event,this)" onmousemove="star.mouse(event,this)" title="Rate This!" style="clear: both;">
+										<li id="starCur3" class="curr" title="98" style="width: 82px;"></li>
+									</ul>
+									<div style="color: rgb(136, 136, 136);" id="starUser3" class="user">0%</div>
+								</div>
+							</td>
+							<td id="border1"> 평   점  </td>
+							<td id="border1" width="130">
+								<div id="star">
+									<ul id="star4" class="star" onmousedown="star.update(event,this)" onmousemove="star.mouse(event,this)" title="Rate This!" style="clear: both;">
+										<li id="starCur4" class="curr" title="98" style="width: 82px;"></li>
+									</ul>
+									<div style="color: rgb(136, 136, 136);" id="starUser4" class="user">0%</div>
+								</div>
+							</td>
+							<td id="border1"> 평   점  </td>
+							<td id="border1" width="130">
+								<div id="star">
+									<ul id="star5" class="star" onmousedown="star.update(event,this)" onmousemove="star.mouse(event,this)" title="Rate This!" style="clear: both;">
+										<li id="starCur5" class="curr" title="98" style="width: 82px;"></li>
+									</ul>
+									<div style="color: rgb(136, 136, 136);" id="starUser5" class="user">0%</div>
+								</div>
+							</td>
+						</tr>
+						<tr align ="center">
+							<td id="border1" colspan = "2">악인전</td>
+							<td id="border1" colspan = "2">알라딘</td>
+							<td id="border1" colspan = "2">어벤져스</td>
+							<td id="border1" colspan = "2">걸캅스</td>
+							<td id="border1" colspan = "2">어린의뢰인</td>
+							<td id="border1" colspan = "2">필하모닉</td>
+						</tr>
+						<tr align ="center">
+							<td id="border1" colspan="2"> <input type="button" value="상세정보">
+								<input type="button" value="예매하기"></td>
+								<td id="border1" colspan="2"> <input type="button" value="상세정보">
+									<input type="button" value="예매하기"></td>
+									<td id="border1" colspan="2"> <input type="button" value="상세정보">
+										<input type="button" value="예매하기"></td>
+										<td id="border1" colspan="2"> <input type="button" value="상세정보">
+											<input type="button" value="예매하기"></td>
+											<td id="border1" colspan="2"> <input type="button" value="상세정보">
+												<input type="button" value="예매하기"></td>
+												<td id="border1" colspan="2"> <input type="button" value="상세정보">
+													<input type="button" value="예매하기"></td>
+												</tr>
+											</tbody>
+										</table>
+
+
+										<div class="flexslider">
+											<ul class="slides">
+												<li class="lineset">
+													<iframe src="https://player.vimeo.com/video/311510437"  width="1400" height="600" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+												</li>
+											</ul>
+										</div>		
+
+										<div id="mainContent" style="margin-left: auto; margin-right: auto;">
+
+											<div id="makeMeScrollable">
+												<div class="scrollingHotSpotLeft"></div>
+
+												<div class="scrollingHotSpotRight"></div>
+												<div class="scrollWrapper">
+													<div class="scrollableArea">
+														<a href="#"><img src="images/demo/event4.jpg" alt="Demo image" width="980" height="450" border="0" /></a>
+														<a href="#"><img src="images/demo/event5.jpg" alt="Demo image" width="980" height="450" /></a>
+														<a href="#"><img src="images/demo/event6.jpg" alt="Demo image" width="980" height="450" /></a></div>
+													</div>
+												</div>
+											</div>
+											<div class=footer>
+												<div class=article3>		
+													<div class=sectionfont>회사소개</div>
+													<ul> 						
+														<li>IR</li>
+														<li>채용정보	</li>
+														<li>오시는길</li>
+														<br>
+													</ul>						
+												</div>
+
+												<div class=article3>			
+													<div class=sectionfont>광고관련</div>
+													<ul> 
+														<li>출점문의</li>
+														<li>광고, 프로모션</li>
+														<li>제휴문의</li>
+														<br>
+													</ul>						
+												</div>
+												<div class=article3>			
+													<div class=sectionfont>유의사항</div>
+													<ul>
+														<li>개인정보처리방침</li>
+														<li>법적고지</li>
+														<li>이메일 무단수집</li>
+														<br>
+													</ul>						
+												</div>					
+												<div class=article3>		
+													<div class=sectionfont>윤리경영</div>
+													<ul> 
+														<li>윤리강령</li>
+														<li>상생경영</li>
+														<br>
+														<br>
+													</ul>						
+												</div>
+												<div class=article3>	
+													<div class=sectionfont>계열사</div>
+													<ul> 
+														<li>다운식품</li>
+														<li>다운캐미컬</li>
+														<li>다운누리</li>
+														<br>
+													</ul>						
+												</div>	
+												<div class=article3>		
+													<div class=sectionfont>사이트맵</div>
+													<ul> 
+														<li>영화</li>
+														<li>예매</li>
+														<li>영화관</li>
+														<li>게시판</li>		
+													</ul>
+
+												</div>	
+
+												<div class=article4>
+													<hr color="black" size="2px">
+													<ul>
+														<li class=lineset2> 이용약관</li>
+														<li class=lineset2> |</li>
+														<li class=lineset2> 개인정보처리방침</li>
+														<li class=lineset2> |</li>
+														<li class=lineset2> 영상정보처리기기운영방침</li>
+														<br>
+														<li class=lineset2> (주)다운시네마 대표이사 다운이</li>
+														<li class=lineset2> |</li>
+														<li class=lineset2> 사업자등록번호 120-**-07029 </li>
+														<li class=lineset2> |</li>
+														<li class=lineset2> 통신판매업신고 제 2010-서울강남-컴퓨터</li>
+														<br>
+														<li class=lineset2> (주)서울시 강남구 봉은사로 99길 7</li>
+														<li class=lineset2> |</li>
+														<li class=lineset2> 고객센터 02-1577-0001 (09:00  - 18:00) </li>
+														<li class=lineset2> |</li>
+														<li class=lineset2> E-mail : jdw@dawooncinema.com</li>
+														<br>
+														<li class=lineset2> 호스팅사업자 : dawoonnetwork</li>
+														<br>
+														<li class=lineset2> ⓒ 2019. Dawoon Cinema. All rights reserved.</li>
+													</ul>	
+												</div>
+											</div><!--  	</footer>헤더부분을 div 로 바꿈 -->	
+										</body>
+										</html>
